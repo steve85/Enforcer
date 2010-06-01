@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This document defines the Install Item tasks.
+  
+  Specify the type of installation within the InstallType element.
+  
+  An install Item is defined using the following xml schema:  
+  <Item>
+    <Id></Id>
+    <Name></Name>
+    <Description></Description>
+    <Installed></Installed>
+    <NotRequired></NotRequired>
+  </Item>
+  
+  Note that the 'Installed' and 'NotRequired' values should both be set 
+  to false initially. The Id value also needs to be unique.
+  
+-->
+<Enforcer InstallType="Windows 7" UserName="" StartTime="" FinishTime="">
+  <InstallItems>
+    <Item>
+      <Id>1</Id>
+      <Name>Change Computer Name</Name>
+      <Description>Change Computer Name to the following format -- &lt;LOC&gt;-&lt;DEPT&gt;-&lt;ASSET&gt; i.e. CAN-PROD-23456 (No Longer than 15 Characters)</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>2</Id>
+      <Name>Change Local Administrator Password</Name>
+      <Description>Change Local Administrator Password to Prime Standard</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>3</Id>
+      <Name>Add Printers</Name>
+      <Description>Add Printers</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>4</Id>
+      <Name>Add Users</Name>
+      <Description>Add Users</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>5</Id>
+      <Name>Update Anti-Virus Definitions</Name>
+      <Description>Update Anti-Virus Definitions</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>6</Id>
+      <Name>Check Netware Contexts and users are correct</Name>
+      <Description>Check Netware Contexts and users are correct</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>7</Id>
+      <Name>Modify wallpaper if necessary</Name>
+      <Description>Modify wallpaper if necessary</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>8</Id>
+      <Name>Windows updates</Name>
+      <Description>Windows updates</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>9</Id>
+      <Name>Department Specific Programs</Name>
+      <Description>Add extra programs that are department specific such as scheduall for production</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>10</Id>
+      <Name>Set correct time zone</Name>
+      <Description>Set correct time zone</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>11</Id>
+      <Name>Setup Citrix Program Neighborhood Application Set</Name>
+      <Description>Setup Citrix Program Neighborhood Application Set</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>12</Id>
+      <Name>Install Cisco Unified Video Advantage</Name>
+      <Description>If the user is Video Enabled, Install Cisco Unified Video Advantage (C:\Software and drivers (HP Elite 8000)</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>13</Id>
+      <Name>Configure Local User</Name>
+      <Description>Configure Local User</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>14</Id>
+      <Name>Configure Windows 7</Name>
+      <Description>Windows 7 is a bag of toss, so you need to manually configure all aspects of the Client.
+      This includes:
+      Internet Explorer 8 Settings
+      - Homepage to http://intranet1/primeweb
+      - Proxy Settings set to Automatic
+      - Dubsat Bits
+      Firefox Settings
+      - Homepage to http://intranet1/primeweb
+      - Proxy Settings set to Automatic
+      Modify Taskbar as needed.
+    </Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>15</Id>
+      <Name>Pin Internet Explorer</Name>
+      <Description>“Pin” Internet Explorer, Citrix Program Neighbourhood and Lotus Notes 8.5/7 Shortcuts</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>16</Id>
+      <Name>Disable Microsoft Update</Name>
+      <Description>Open a Office Program (Word, Powerpoint, Excel) And disable Microsoft Update</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+    <Item>
+      <Id>17</Id>
+      <Name>Laptop Setup</Name>
+      <Description>Bootup password protect with standard password</Description>
+      <Installed>False</Installed>
+      <NotRequired>False</NotRequired>
+    </Item>
+  </InstallItems>
+</Enforcer>
