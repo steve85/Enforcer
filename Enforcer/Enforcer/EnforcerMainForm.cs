@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.Collections;
 
 namespace Enforcer
 {
@@ -38,7 +39,7 @@ namespace Enforcer
             InitializeComponent();
             this._installType = string.Empty;
             this.ReadData();
-            this.LoadList();
+            this.AddControls();
         }
 
         // Read data from xml file
@@ -66,40 +67,11 @@ namespace Enforcer
                     this.lblInstallItems.Text = string.Format("Installation Items for {0}",  this._installType);
                 }
 
-                /*
-                // Get or set the user name
-                if (!string.IsNullOrEmpty(xmlDocument.DocumentElement.GetAttributeNode("UserName").Value))
-                {
-                    this._userName = xmlDocument.DocumentElement.GetAttributeNode("UserName").Value;
-                }
-                else
-                {
-                    // ### set the user name
-                    if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USERNAME").ToString()))
-                    {
-                        this._userName = Environment.GetEnvironmentVariable("USERNAME").ToString();
-                        xmlDocument.DocumentElement.SetAttribute("UserName", 
-                            Environment.GetEnvironmentVariable("USERNAME").ToString());
-                    }
-                }
+                this.GetUserName(xmlDocument);
+                this.InsertInitialTimeStamp(xmlDocument);
 
-                // Get or set the start time
-                if (!string.IsNullOrEmpty(xmlDocument.DocumentElement.GetAttributeNode("StartTime").Value))
-                {
-                    this._startTime = xmlDocument.DocumentElement.GetAttributeNode("StartTime").Value;
-                }
-                else
-                {
-                    this._startTime = string.Format("{0}",DateTime.Now);
-                    xmlDocument.DocumentElement.SetAttribute("StartTime", this._startTime);                            
-                }
-                 */
-
-
-                XmlNodeList xmlNodeList = xmlDocument.GetElementsByTagName("InstallItems");
+                XmlNodeList xmlNodeList = xmlDocument.SelectNodes("//Enforcer/InstallItems/Item");
                  
-
-
                 // Loop through each installation item
                 foreach (XmlNode xmlInstallNodes in xmlNodeList)
                 {
@@ -195,14 +167,37 @@ namespace Enforcer
             // unexpectedly the config will be remembered
         }
 
-        private void GetUserName()
+        private void GetUserName(XmlDocument xmlDocument)
         {
-
+            // Get or set the user name
+            if (!string.IsNullOrEmpty(xmlDocument.DocumentElement.GetAttributeNode("UserName").Value))
+            {
+                this._userName = xmlDocument.DocumentElement.GetAttributeNode("UserName").Value;
+            }
+            else
+            {
+                // ### set the user name
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USERNAME").ToString()))
+                {
+                    this._userName = Environment.GetEnvironmentVariable("USERNAME").ToString();
+                    xmlDocument.DocumentElement.SetAttribute("UserName",
+                        Environment.GetEnvironmentVariable("USERNAME").ToString());
+                }
+            }
         }
 
-        private void InsertInitialTimeStamp()
+        private void InsertInitialTimeStamp(XmlDocument xmlDocument)
         {
-
+            // Get or set the start time
+            if (!string.IsNullOrEmpty(xmlDocument.DocumentElement.GetAttributeNode("StartTime").Value))
+            {
+                this._startTime = xmlDocument.DocumentElement.GetAttributeNode("StartTime").Value;
+            }
+            else
+            {
+                this._startTime = string.Format("{0}", DateTime.Now);
+                xmlDocument.DocumentElement.SetAttribute("StartTime", this._startTime);
+            }
         }
 
         private void InsertFinishTimeStamp()
@@ -210,16 +205,63 @@ namespace Enforcer
 
         }
 
-        private void LoadList()
+        // Dynamically adds controls to the panel depending on xml file
+        private void AddControls()
         {
-            this.ListBoxInstallItems.DataSource = this._lstInstallItems;
-            this.ListBoxInstallItems.DisplayMember = "Name";
+            ArrayList lstLabels = new ArrayList();
+            ArrayList lstDone = new ArrayList();
+            ArrayList lstNotRequired = new ArrayList();
+            for (int i = 0; i < this._lstInstallItems.Count; i++)
+            {
+                // ### Add image placeholders
+
+ 
+                // Add labels                
+                lstLabels.Add(new Label());
+                ((Label)lstLabels[i]).Location = new System.Drawing.Point(40, 25 + i * 40);
+                ((Label)lstLabels[i]).Name = "Label" + i.ToString();
+                ((Label)lstLabels[i]).Size = new System.Drawing.Size(440, 40);
+                ((Label)lstLabels[i]).Text = this._lstInstallItems[i].Name;
+                ((Label)lstLabels[i]).Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+                this.PanelInstallItems.Controls.Add(((Label)lstLabels[i]));
+
+
+                // Add is done checkbox
+                lstDone.Add(new CheckBox());
+                ((CheckBox)lstDone[i]).Location = new System.Drawing.Point(480, 25 + i * 40);
+                ((CheckBox)lstDone[i]).Name = "Done" + i.ToString();
+                ((CheckBox)lstDone[i]).Size = new Size(100, 40);
+                ((CheckBox)lstDone[i]).Text = "Done";                
+                ((CheckBox)lstDone[i]).Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+                ((CheckBox)lstDone[i]).CheckedChanged += new EventHandler(EnforcerMainForm_CheckedChanged);
+                this.PanelInstallItems.Controls.Add(((CheckBox)lstDone[i]));
+
+                // ### Check is mandatory
+                // Add is not required checkbox
+                lstNotRequired.Add(new CheckBox());
+                ((CheckBox)lstNotRequired[i]).Location = new System.Drawing.Point(580, 25 + i * 40);
+                ((CheckBox)lstNotRequired[i]).Name = "NotRequired" + i.ToString();
+                ((CheckBox)lstNotRequired[i]).Size = new Size(150, 40);
+                ((CheckBox)lstNotRequired[i]).Text = "Not Required";
+                ((CheckBox)lstNotRequired[i]).Font = new Font("Microsoft Sans Serif", 7.8F, FontStyle.Bold);
+                ((CheckBox)lstNotRequired[i]).CheckedChanged += new EventHandler(EnforcerMainForm_CheckedChanged);
+                this.PanelInstallItems.Controls.Add(((CheckBox)lstNotRequired[i]));
+
+                this.txtItemDesc.Text = this._lstInstallItems[i].Description;
+
+                // Break loop
+                if (!this._lstInstallItems[i].IsInstalled && !this._lstInstallItems[i].IsNotRequired)
+                    break;
+              
+            }
         }
 
-        private void ListBoxInstallItems_SelectedIndexChanged(object sender, EventArgs e)
+        private void EnforcerMainForm_CheckedChanged(object sender, EventArgs e)
         {
-            InstallItem item = (InstallItem)this.ListBoxInstallItems.SelectedItem;
-            this.txtItemDesc.Text = item.Description;
+            // ### Determine the box that is checked and go from here
+            CheckBox chkBox = (CheckBox)sender;
+            MessageBox.Show(chkBox.Name);
         }
+
     }
 }

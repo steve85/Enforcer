@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.lblInstallItems = new System.Windows.Forms.Label();
-            this.ListBoxInstallItems = new System.Windows.Forms.ListBox();
             this.grpDescription = new System.Windows.Forms.GroupBox();
             this.txtItemDesc = new System.Windows.Forms.TextBox();
+            this.PanelInstallItems = new System.Windows.Forms.Panel();
             this.grpDescription.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,22 +45,12 @@
             this.lblInstallItems.TabIndex = 1;
             this.lblInstallItems.Text = "Installation Items";
             // 
-            // ListBoxInstallItems
-            // 
-            this.ListBoxInstallItems.FormattingEnabled = true;
-            this.ListBoxInstallItems.ItemHeight = 16;
-            this.ListBoxInstallItems.Location = new System.Drawing.Point(16, 46);
-            this.ListBoxInstallItems.Name = "ListBoxInstallItems";
-            this.ListBoxInstallItems.Size = new System.Drawing.Size(445, 244);
-            this.ListBoxInstallItems.TabIndex = 2;
-            this.ListBoxInstallItems.SelectedIndexChanged += new System.EventHandler(this.ListBoxInstallItems_SelectedIndexChanged);
-            // 
             // grpDescription
             // 
             this.grpDescription.Controls.Add(this.txtItemDesc);
-            this.grpDescription.Location = new System.Drawing.Point(16, 322);
+            this.grpDescription.Location = new System.Drawing.Point(12, 322);
             this.grpDescription.Name = "grpDescription";
-            this.grpDescription.Size = new System.Drawing.Size(445, 106);
+            this.grpDescription.Size = new System.Drawing.Size(765, 106);
             this.grpDescription.TabIndex = 3;
             this.grpDescription.TabStop = false;
             this.grpDescription.Text = "Item Description";
@@ -72,16 +62,25 @@
             this.txtItemDesc.Name = "txtItemDesc";
             this.txtItemDesc.ReadOnly = true;
             this.txtItemDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtItemDesc.Size = new System.Drawing.Size(432, 72);
+            this.txtItemDesc.Size = new System.Drawing.Size(752, 72);
             this.txtItemDesc.TabIndex = 0;
+            // 
+            // PanelInstallItems
+            // 
+            this.PanelInstallItems.AutoScroll = true;
+            this.PanelInstallItems.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PanelInstallItems.Location = new System.Drawing.Point(12, 43);
+            this.PanelInstallItems.Name = "PanelInstallItems";
+            this.PanelInstallItems.Size = new System.Drawing.Size(765, 263);
+            this.PanelInstallItems.TabIndex = 4;
             // 
             // EnforcerMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 469);
+            this.ClientSize = new System.Drawing.Size(791, 469);
+            this.Controls.Add(this.PanelInstallItems);
             this.Controls.Add(this.grpDescription);
-            this.Controls.Add(this.ListBoxInstallItems);
             this.Controls.Add(this.lblInstallItems);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -97,9 +96,9 @@
         #endregion
 
         private System.Windows.Forms.Label lblInstallItems;
-        private System.Windows.Forms.ListBox ListBoxInstallItems;
         private System.Windows.Forms.GroupBox grpDescription;
         private System.Windows.Forms.TextBox txtItemDesc;
+        private System.Windows.Forms.Panel PanelInstallItems;
 
     }
 }
